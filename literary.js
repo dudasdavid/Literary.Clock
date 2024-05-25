@@ -18,12 +18,6 @@
         "author": "Vladimir Nabokov "
     }, {
         "time": "12:00:00 AM",
-        "descriptive": "12.00 pm",
-        "quote": "That a man who could hardly see anything more than two feet away from him could be employed as a security guard suggested to me that our job was not to secure anything but to report for work every night, fill the bulky ledger with cryptic remarks like \"Patrolled perimeter 12.00 pm, No Incident\" and go to the office every fortnight for our wages and listen to the talkative Ms Elgassier.",
-        "source": "A Squatter's Tale ",
-        "author": "Ike Oguine "
-    }, {
-        "time": "12:00:00 AM",
         "descriptive": "midnight",
         "quote": "'Tis the year's midnight, and it is the day's, Lucy's, who scarce seven hours herself unmasks; The sun is spent, and now his flasks Send forth light squibs, no constant rays;",
         "source": "A Nocturnal upon St Lucy's Day ",
@@ -17528,7 +17522,7 @@
     }, {
         "time": "11:59:00 PM",
         "descriptive": "A minute to midnight",
-        "quote": "At a minute to midnight,Roquenton was holding his wife's hand and giving her some last words of advice. On the stroke of midnight, she felt her companion's hand melt away inside her own.",
+        "quote": "At a minute to midnight, Roquenton was holding his wife's hand and giving her some last words of advice. On the stroke of midnight, she felt her companion's hand melt away inside her own.",
         "source": "The Man Who Walked Through Walls",
         "author": "Marcel Aymo"
     }, {
@@ -17540,11 +17534,19 @@
     }
 ];
 
+function convertTZ(date, tzString) {
+    return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+}
+
+
+var allText =[];
+var allTextLines = [];
 
 //Create variable to find current time
-var d = new Date();
+var d1 = new Date();
+var d = convertTZ(d1, "Europe/Zurich")
 //Get hours value of now
-var hours = d.getHours();
+var hours = d.getHours()+2;
 //Get minutes value of now
 var minutes = d.getMinutes();
 //Create generic AM/PM variable, default to AM
@@ -17578,18 +17580,33 @@ for (var i = 0; i < quotes.length; i++) {
         quote = quotes[i].quote;
         console.log(quotes[i].time);
         console.log(quotes[i].quote);
-        document.getElementById("quote").innerHTML = quotes[i].quote;
+        //document.getElementById("quote").innerHTML = quotes[i].quote;
+        document.getElementById("quote").innerHTML = allTextLines[1];
         document.getElementById("author").innerHTML = quotes[i].author;
         document.getElementById("source").innerHTML = quotes[i].source;
     }
 }
 
 //document.getElementById("now").innerHTML = now;
-document.getElementById("quote").innerHTML = quote;
+//document.getElementById("quote").innerHTML = quote;
 
-//Dynamically add the Copyright year to the website:
+document.getElementById("time_now").innerHTML = shortNow;
+
+//Dynamically add the loading date to the website:
 //Called from <body onload="">
-function copyrightDate() {
-    var copyrightYear = new Date();
-    document.getElementById('copyright').innerHTML = copyrightYear.getFullYear();
+function loadingDate() {
+    var loading = new Date();
+    document.getElementById('loading_date').innerHTML = loading.toLocaleString("en-US", "Europe/Zurich");
+
+
+
+    var txtFile = new XMLHttpRequest();
+    txtFile.open("GET", "file://data.csv", true);
+    txtFile.onreadystatechange = function()
+    {
+        allText = txtFile.responseText;
+        allTextLines = allText.split(/\r\n|\n/);
+    };
+
+    console.log(allTextLines[1]);
 }
