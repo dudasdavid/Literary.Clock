@@ -9,7 +9,7 @@
 .quoteArea {
   background-color: rgb(255, 255, 255);
   color: #000000;
-  padding-top: 10px;
+  padding-top: 0px;
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 25px;
@@ -22,10 +22,10 @@
 }
 
 .title {
-  font-size: 3rem;
+  font-size: 5rem;
   font: small-caps;
   color: #000000;
-  padding: 20px;
+  padding: 0px;
   background-color: rgba(255, 255, 255);
   display: block;
   text-align: center;
@@ -35,12 +35,14 @@
   font-weight: bold;
   font-size: 1.5rem;
   display: block;
+  text-align: right;
 }
 
 .source {
   font-style: italic;
   font-size: 1.5rem;
   display: block;
+  text-align: right;
 }
 
 footer {
