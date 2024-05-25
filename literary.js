@@ -21387,16 +21387,16 @@ function convertTZ(date, tzString) {
 var d1 = new Date();
 var d = convertTZ(d1, "Europe/Zurich")
 //Get hours value of now
-var hours = d.getHours();
+var hours = d.getHours()+2;
 //Get minutes value of now
 var minutes = d.getMinutes();
 //Create generic AM/PM variable, default to AM
 var ampm = "AM";
 //Determine if PM, set ampm to PM if necessary
-//if (hours > 12) {
-//    hours -= 12;
-//    ampm = "PM";
-//}
+if (hours > 23) {
+    hours -= 24;
+    //ampm = "PM";
+}
 //Set AMPM to PM for Noon hour.
 //if (hours == 12) {
 //    ampm = "PM";
